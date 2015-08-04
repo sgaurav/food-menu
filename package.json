@@ -1,0 +1,14 @@
+{
+  "name": "MagicTiger-Food-Menu",
+  "version": "0.0.1",
+  "description": "Creates a smart food form for MagicTiger",
+  "main": "index.js",
+  "scripts": {
+    "watch:riot": "riot -w tags/ js/"
+  },
+  "author": "Gaurav Singh",
+  "license": "ISC",
+  "devDependencies": {
+    "riot": "~2.2.2"
+  }
+}
