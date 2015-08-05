@@ -371,6 +371,18 @@
         }
       });
 
+      document.addEventListener('click', function(e){
+        if (e.target.className == 'submit' || e.target.className == 'cart-container visible'){
+          callAjax();
+        }
+      });
+
+      function callAjax(){
+        xmlhttp=new XMLHttpRequest();
+        xmlhttp.open("POST","https://hgx33ngwwx7m.runscope.net",true);
+        xmlhttp.send();
+      };
+
       function addToCart(){
         var classList = document.getElementById('cart').className;
         if(classList.indexOf('visible') <= -1){

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Order Food Online</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/swiper.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <script src="js/riot.min.js"></script>
+    <script src="js/menu.js"></script>
+    <script>
+    window.menuInfo = {"form_json":{"Fresh Menu":[{"vendor":"Fresh Menu","name":"FM - Linzer Torte","price":100,"isVeg":true,"link":"https://files.podio.com/175670054","qty":0},{"vendor":"Fresh Menu","name":"FM - Chocolate Mud Pie Tart","price":120,"isVeg":true,"link":"https://files.podio.com/175669914","qty":0},{"vendor":"Fresh Menu","name":"FM - Banana Upside Down Cake","price":120,"isVeg":true,"link":"https://files.podio.com/175669766","qty":0}],"HungerBox":[{"vendor":"HungerBox","name":"HB - Linzer Torte","price":100,"isVeg":true,"link":"https://files.podio.com/175670054","qty":0},{"vendor":"HungerBox","name":"HB - Chocolate Mud Pie Tart","price":120,"isVeg":true,"link":"https://files.podio.com/175669914","qty":0},{"vendor":"HungerBox","name":"HB - Banana Upside Down Cake","price":120,"isVeg":true,"link":"https://files.podio.com/175669766","qty":0}],"Eatango":[{"vendor":"Eatango","name":"EG - Linzer Torte","price":100,"isVeg":true,"link":"https://files.podio.com/175670054","qty":0},{"vendor":"Eatango","name":"EG - Chocolate Mud Pie Tart","price":120,"isVeg":true,"link":"https://files.podio.com/175669914","qty":0},{"vendor":"Eatango","name":"EG - Banana Upside Down Cake","price":120,"isVeg":true,"link":"https://files.podio.com/175669766","qty":0}]},"form_id":1};
+    </script>
+  </head>
+  <body>
+    <menu></menu>
+    <script>riot.mount('menu')</script>
+    <script src="./js/swiper.min.js"></script>
+    <script>
+
+    function getData(){
+      var form_id = decodeURIComponent(window.location.href).split('?form_id=')[1];
+
+      var http = new XMLHttpRequest();
+      var url = "/messaging/smartforms/smartform/" + form_id;
+      http.open("GET", url, true);
+
+      //Send the proper header information along with the request
+      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      http.setRequestHeader("Authorization", MagicAppJavaScriptInterface.getSessionId());
+
+      http.onreadystatechange = function() {//Call a function when the state changes.
+        alert(http.status);
+        if(http.readyState == 4 && http.status == 200) {
+          window.menuInfo = JSON.parse(http.responseText);
+          var body = document.body || document.getElementsByTagName('body')[0];
+          body.appendChild(document.createElement('menu'));
+          riot.mount('menu');
+
+          //create menu
+          var titles = ['All'];
+          titles = titles.concat(window.keys);
+          var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            paginationBulletRender: function (index, className) {
+              return '<span class="' + className + '">' + titles[index] + '</span>';
+            }
+          });
+          alert(http.responseText);
+        }
+      }
+      http.send();
+    };
+
+    function putData(data){
+      var form_id = decodeURIComponent(window.location.href).split('?form_id=')[1];
+
+      var http = new XMLHttpRequest();
+      var url = "/messaging/smartforms/smartform/" + form_id;
+      http.open("PUT", url, true);
+      //Send the proper header information along with the request
+      http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+      http.setRequestHeader("Authorization", MagicAppJavaScriptInterface.getSessionId());
+
+      http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+          alert(http.responseText);
+        }
+      };
+      http.send(JSON.stringify(data));
+    };
+    </script>
+    <script>
+      document.addEventListener('click', function(e){
+        if (e.target.className == 'submit' || e.target.className == 'cart-container visible'){
+          putData(window.menuInfo);
+        }
+      });
+    </script>
+  </body>
+</html>
