@@ -13,6 +13,10 @@
                 <span class="product-price">Rs. {prd.price}</span>
               </div>
               <div class="submit-btn" onclick={ add }>ADD</div>
+              <div class="btn-group">
+                <input type="button" class="counter plus" value="+"></input>
+                <input type="button" class="counter minus" value="-"></input>
+              </div>
             </div>
           </div>
         </div>
