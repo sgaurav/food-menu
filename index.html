@@ -27,9 +27,7 @@
         http.setRequestHeader("Authorization", MagicAppJavaScriptInterface.getSessionId());
 
         http.onreadystatechange = function() {//Call a function when the state changes.
-          alert(http.readyState);
           if(http.readyState == 4 && http.status == 200) {
-            alert(http.responseText);
             window.menuInfo = JSON.parse(http.responseText);
             var body = document.body || document.getElementsByTagName('body')[0];
             body.appendChild(document.createElement('menu'));
@@ -61,7 +59,6 @@
         http.setRequestHeader("Authorization", MagicAppJavaScriptInterface.getSessionId());
 
         http.onreadystatechange = function() {//Call a function when the state changes.
-          alert(http.responseText);
           if(http.readyState == 4 && http.status == 200) {
             alert(http.responseText);
           }

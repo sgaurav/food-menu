@@ -7,15 +7,16 @@
           <div class="product-wrapper" each={prd, k in window.menuInfo.form_json[item]}>
             <div class="content-wrapper">
               <div class="img-wrapper" riot-style="background-image: url('{prd.link}')">
+              <div class={ prd.qty? 'img-qty-cover visible':'img-qty-cover'}>{prd.qty}</div>
               </div>
               <div class="product-desc">
                 <h3 class="product-name">{prd.name}</h3>
                 <span class="product-price">Rs. {prd.price}</span>
               </div>
               <div class="submit-btn" onclick={ add }>ADD</div>
-              <div class="btn-group">
-                <input type="button" class="counter plus" value="+"></input>
-                <input type="button" class="counter minus" value="-"></input>
+              <div class={ prd.qty? 'btn-group show':'btn-group'}>
+                <input type="button" class="counter minus" value="-" onclick={ minus }></input>
+                <input type="button" class="counter plus" value="+" onclick={ add }></input>
               </div>
             </div>
           </div>
@@ -54,6 +55,36 @@
     window.count +=1;
 
     var classList = document.getElementById('cart').className;
+    if(classList.indexOf('visible') <= -1){
+      document.getElementById('cart').className += ' visible';
+      document.querySelector('.swiper-slide-active .vendor-wrapper:last-child').style.marginBottom = '95px';
+    };
+
+    document.getElementById('count').innerHTML = window.count;
+    return true;
+  };
+
+  minus(e){
+    var vendor = e.item.prd.vendor;
+    var name = e.item.prd.name;
+    var location = null;
+    var list = window.menuInfo.form_json[vendor];
+    list.forEach(function(item, index){
+      if(item.name == name) location = index;
+    });
+
+    if(!window.menuInfo.form_json[vendor][location].qty) return;
+    window.menuInfo.form_json[vendor][location].qty -= 1;
+    window.count -=1;
+
+    var classList = document.getElementById('cart').className;
+
+    if(!window.count){
+      document.getElementById('cart').className = 'cart-container';
+      document.querySelector('.swiper-slide-active .vendor-wrapper:last-child').style.marginBottom = '40px';
+      return true;
+    }
+
     if(classList.indexOf('visible') <= -1){
       document.getElementById('cart').className += ' visible';
     };
