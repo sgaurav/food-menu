@@ -7,12 +7,12 @@
 
     <link rel="stylesheet" href="./css/swiper.min.css">
     <link rel="stylesheet" href="./css/style.css">
+
+    <script src="js/riot.min.js"></script>
+    <script src="js/menu.js"></script>
   </head>
   <body>
-    <div class="welcome">
-      Loading...
-    </div>
-    <script src="./js/app.js"></script>
+    <script src="./js/swiper.min.js"></script>
     <script>
       function getData() {
         var form_id = decodeURIComponent(window.location.href).split('?form_id=')[1];
@@ -41,7 +41,7 @@
             window.menuInfo = JSON.parse(http.responseText);
             var body = document.body || document.getElementsByTagName('body')[0];
             // this is a hack to show updated form data to agents
-            // if(isNotAndroid) body.innerHTML = '';
+            if(isNotAndroid) body.innerHTML = '';
             body.appendChild(document.createElement('menu'));
             riot.mount('menu');
 
@@ -55,8 +55,6 @@
                 return '<span class="' + className + '">' + titles[index] + '</span>';
               }
             });
-            document.getElementsByClassName('welcome')[0].style.display = 'none';
-            document.getElementsByTagName('menu')[0].className = 'visible';
           }
         }
         http.send();
@@ -97,9 +95,7 @@
           putData(window.menuInfo);
         }
       });
-      window.onload = function(){
-        getData();
-      };
+      getData();
     </script>
   </body>
 </html>

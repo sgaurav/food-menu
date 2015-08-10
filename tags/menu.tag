@@ -28,7 +28,7 @@
       <i class="fa fa-shopping-cart shopping-card-icon"></i>
       <img src="./images/cart.png"/>
       <div class="cart-count" id="count">{window.count}</div>
-      <span class="submit" riot-style="font-size: {isSubmitted?'16px':'20px'}">{isSubmitted? 'Form already submitted.':'SUBMIT'}</span>
+      <span class="submit" riot-style="font-size: {isSubmitted?'16px':'20px'}">{isSubmitted? 'Form already submitted.':'PLACE ORDER'}</span>
     </div>
   </div>
 
