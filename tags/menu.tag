@@ -15,8 +15,8 @@
               </div>
               <div class="submit-btn" onclick={ add }>ADD</div>
               <div class={ prd.qty? 'btn-group show':'btn-group'}>
-                <input type="button" class="counter minus" value="-" onclick={ minus }></input>
-                <input type="button" class="counter plus" value="+" onclick={ add }></input>
+                <input type="button" class="counter minus" value="-" onclick={ minus } disabled = {isSubmitted?'disabled':''}></input>
+                <input type="button" class="counter plus" value="+" onclick={ add } disabled = {isSubmitted?'disabled':''}></input>
               </div>
             </div>
           </div>
@@ -24,10 +24,11 @@
       </div>
     </div>
     <div class="swiper-pagination"></div>
-    <div class="cart-container" id="cart">
+    <div class={isSubmitted? 'cart-container visible':'cart-container'} id="cart">
       <i class="fa fa-shopping-cart shopping-card-icon"></i>
-      <div class="cart-count" id="count">1</div>
-      <span class="submit">SUBMIT</span>
+      <img src="./images/cart.png"/>
+      <div class="cart-count" id="count">{window.count}</div>
+      <span class="submit">{isSubmitted? 'SUBMITTED':'SUBMIT'}</span>
     </div>
   </div>
 
@@ -43,7 +44,21 @@
     self.mappedKeys.push(temp);
   });
 
+  this.isSubmitted = !!(window.menuInfo.state == 'SUBMITTED');
+
+  //function to count total for already ordered form
+  (function getCount(){
+    var arr = self.mappedKeys[0];
+    arr.forEach(function(key){
+      var vendor = self.data[key];
+      vendor.forEach(function(item){
+        window.count += item.qty;
+      });
+    });
+  })();
+
   add(e){
+    if(isSubmitted) return;
     var vendor = e.item.prd.vendor;
     var name = e.item.prd.name;
     var location = null;
@@ -60,11 +75,12 @@
       document.querySelector('.swiper-slide-active .vendor-wrapper:last-child').style.marginBottom = '95px';
     };
 
-    document.getElementById('count').innerHTML = window.count;
+    // document.getElementById('count').innerHTML = window.count;
     return true;
   };
 
   minus(e){
+    if(isSubmitted) return;
     var vendor = e.item.prd.vendor;
     var name = e.item.prd.name;
     var location = null;

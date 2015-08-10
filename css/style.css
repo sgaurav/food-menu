@@ -242,6 +242,13 @@ menu {
   opacity: 0;
 }
 
+.cart-container img {
+  position: absolute;
+  left: 13px;
+  top: 18px;
+  height: 28px;
+}
+
 .swiper-slide-active .vendor-wrapper:last-child {
   margin-bottom: 40px;
 }
