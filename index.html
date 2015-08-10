@@ -24,12 +24,15 @@
         //Send the proper header information along with the request
         http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         var sessionId = null;
+        window.isNotAndroid = false;
         try {
           var sessionId = MagicAppJavaScriptInterface.getSessionId();
           http.setRequestHeader("Authorization", MagicAppJavaScriptInterface.getSessionId());
         } catch (exception) {
+          window.isNotAndroid = true;
           setInterval(function() {
-            window.location.reload();
+            http.open("GET", url, true);
+            http.send();
           }, 3000);
         }
 
@@ -37,6 +40,8 @@
           if (http.readyState == 4 && http.status == 200) {
             window.menuInfo = JSON.parse(http.responseText);
             var body = document.body || document.getElementsByTagName('body')[0];
+            // this is a hack to show updated form data to agents
+            if(isNotAndroid) body.innerHTML = '';
             body.appendChild(document.createElement('menu'));
             riot.mount('menu');
 
@@ -57,6 +62,17 @@
 
       function putData(data) {
         if(window.menuInfo.state == 'SUBMITTED') return;
+        var animate = window.setInterval(function(){
+          var text = document.getElementsByClassName('submit')[0].innerHTML;
+          if(text == 'SUBMITTING...'){
+            text = 'SUBMITTING';
+          }
+          else {
+            text += '.';
+          }
+          document.getElementsByClassName('submit')[0].innerHTML = text;
+        }, 300);
+        document.getElementsByClassName('submit')[0].innerHTML = 'SUBMITTING';
         var form_id = decodeURIComponent(window.location.href).split('?form_id=')[1];
 
         var http = new XMLHttpRequest();
@@ -68,7 +84,8 @@
 
         http.onreadystatechange = function() { //Call a function when the state changes.
           if (http.readyState == 4 && http.status == 200) {
-            console.log('food form submited');
+            window.clearInterval(animate);
+            window.location.href = window.location.protocol + '//' + window.location.host + '/food-menu/finish/';
           }
         };
         http.send(JSON.stringify(data));

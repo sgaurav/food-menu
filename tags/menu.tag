@@ -15,8 +15,8 @@
               </div>
               <div class="submit-btn" onclick={ add }>ADD</div>
               <div class={ prd.qty? 'btn-group show':'btn-group'}>
-                <input type="button" class="counter minus" value="-" onclick={ minus } disabled = {isSubmitted?'disabled':''}></input>
-                <input type="button" class="counter plus" value="+" onclick={ add } disabled = {isSubmitted?'disabled':''}></input>
+                <input type="button" class="counter minus" value="-" onclick={ minus }></input>
+                <input type="button" class="counter plus" value="+" onclick={ add }></input>
               </div>
             </div>
           </div>
@@ -28,7 +28,7 @@
       <i class="fa fa-shopping-cart shopping-card-icon"></i>
       <img src="./images/cart.png"/>
       <div class="cart-count" id="count">{window.count}</div>
-      <span class="submit">{isSubmitted? 'Form already submitted.':'SUBMIT'}</span>
+      <span class="submit" riot-style="font-size: {isSubmitted?'16px':'20px'}">{isSubmitted? 'Form already submitted.':'SUBMIT'}</span>
     </div>
   </div>
 
@@ -48,6 +48,7 @@
 
   //function to count total for already ordered form
   (function getCount(){
+    window.count = 0;
     var arr = self.mappedKeys[0];
     arr.forEach(function(key){
       var vendor = self.data[key];
@@ -56,9 +57,9 @@
       });
     });
   })();
-
+  
   add(e){
-    if(isSubmitted) return;
+    if(self.isSubmitted) return;
     var vendor = e.item.prd.vendor;
     var name = e.item.prd.name;
     var location = null;
@@ -74,13 +75,11 @@
       document.getElementById('cart').className += ' visible';
       document.querySelector('.swiper-slide-active .vendor-wrapper:last-child').style.marginBottom = '95px';
     };
-
-    // document.getElementById('count').innerHTML = window.count;
     return true;
   };
 
   minus(e){
-    if(isSubmitted) return;
+    if(self.isSubmitted) return;
     var vendor = e.item.prd.vendor;
     var name = e.item.prd.name;
     var location = null;
