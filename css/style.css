@@ -273,3 +273,28 @@ menu {
   font-size: 20px;
   text-align: center;
 }
+
+.thanks {
+  margin: 0px;
+  padding: 10px;
+  background-color: #F9FAFB;
+}
+
+.thank-you h3 {
+  font-size: 36px;
+  text-align: center;
+  color: #26B494;
+  font-weight: 300;
+}
+
+.thank-you hr {
+  border-color: #EFEFEF;
+  margin-top: -15px;
+  border-top: 0;
+}
+
+.thank-you p {
+  font-size: 20px;
+  color: #666;
+  text-align: center;
+}
