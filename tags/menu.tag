@@ -7,7 +7,10 @@
           <div class="product-wrapper" each={prd, k in window.menuInfo.form_json[item]}>
             <div class="content-wrapper">
               <div class="img-wrapper" riot-style="background-image: url('{prd.link}')">
-              <div class={ prd.qty? 'img-qty-cover visible':'img-qty-cover'}>{prd.qty}</div>
+                <div class={ prd.qty? 'img-qty-cover visible':'img-qty-cover'}>{prd.qty}</div>
+                <div class="food-mark">
+                  <div class={prd.isVeg? 'food-mark-circle veg':'food-mark-circle non-veg'}></div>
+                </div>
               </div>
               <div class="product-desc">
                 <h3 class="product-name">{prd.name}</h3>
