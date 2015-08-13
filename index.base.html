@@ -85,7 +85,7 @@
         http.onreadystatechange = function() { //Call a function when the state changes.
           if (http.readyState == 4 && http.status == 200) {
             window.clearInterval(animate);
-            window.location.href = window.location.protocol + '//' + window.location.host + '/food-menu/finish/';
+            window.location.href = window.location.protocol + '//' + window.location.host + '/food-menu/finish.html';
           }
         };
         http.send(JSON.stringify(data));
