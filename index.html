@@ -32,7 +32,7 @@
         } catch (exception) {
           window.isNotAndroid = true;
           window.isRepeat = true;
-          setInterval(function() {
+          var repeat = window.setInterval(function() {
             http.open("GET", url, true);
             http.send();
           }, 3000);
@@ -59,6 +59,7 @@
             });
             var isFormSubmitted = !!(window.menuInfo.state == 'SUBMITTED');
             if(isFormSubmitted){
+              window.clearInterval(repeat);
               document.querySelector('.swiper-slide-active .vendor-wrapper:last-child').style.marginBottom = '95px';
             }
             if(!window.isRepeat){
