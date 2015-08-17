@@ -57,6 +57,10 @@
                 return '<span class="' + className + '">' + titles[index] + '</span>';
               }
             });
+            var isFormSubmitted = !!(window.menuInfo.state == 'SUBMITTED');
+            if(isFormSubmitted){
+              document.querySelector('.swiper-slide-active .vendor-wrapper:last-child').style.marginBottom = '95px';
+            }
             if(!window.isRepeat){
               document.getElementsByClassName('welcome')[0].style.display = 'none';
               document.getElementsByTagName('menu')[0].className = 'visible';
