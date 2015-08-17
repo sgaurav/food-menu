@@ -59,8 +59,12 @@
             });
             if(!window.isRepeat){
               document.getElementsByClassName('welcome')[0].style.display = 'none';
+              document.getElementsByTagName('menu')[0].className = 'visible';
             }
-            document.getElementsByTagName('menu')[0].className = 'visible';
+            else {
+              document.getElementsByTagName('menu')[0].style.visibility = 'visible';
+              document.getElementsByTagName('menu')[0].style.opacity = 1;
+            }
           }
         }
         http.send();
