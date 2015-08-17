@@ -25,11 +25,13 @@
         http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         var sessionId = null;
         window.isNotAndroid = false;
+        window.isRepeat = false;
         try {
           var sessionId = MagicAppJavaScriptInterface.getSessionId();
           http.setRequestHeader("Authorization", MagicAppJavaScriptInterface.getSessionId());
         } catch (exception) {
           window.isNotAndroid = true;
+          window.isRepeat = true;
           setInterval(function() {
             http.open("GET", url, true);
             http.send();
@@ -55,7 +57,9 @@
                 return '<span class="' + className + '">' + titles[index] + '</span>';
               }
             });
-            document.getElementsByClassName('welcome')[0].style.display = 'none';
+            if(!window.isRepeat){
+              document.getElementsByClassName('welcome')[0].style.display = 'none';
+            }
             document.getElementsByTagName('menu')[0].className = 'visible';
           }
         }
