@@ -41,7 +41,7 @@
             window.menuInfo = JSON.parse(http.responseText);
             var body = document.body || document.getElementsByTagName('body')[0];
             // this is a hack to show updated form data to agents
-            // if(isNotAndroid) body.innerHTML = '';
+            if(isNotAndroid) body.innerHTML = '';
             body.appendChild(document.createElement('menu'));
             riot.mount('menu');
 
