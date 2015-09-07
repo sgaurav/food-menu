@@ -4,7 +4,7 @@
       <div class="swiper-slide"  each={arr, i in mappedKeys}>
         <div class="vendor-wrapper"  each={item, j in arr}>
           <div class="vendor-name">{item}</div>
-          <div class="product-wrapper" each={prd, k in window.menuInfo.form_json[item]}>
+          <div class="product-wrapper" each={prd, k in window.menuInfo.form_json[item]} riot-style="{isSubmitted?prd.qty?'display:block':'display:none':''}">
             <div class="content-wrapper">
               <div class="img-wrapper" riot-style="background-image: url('{prd.link}')">
                 <div class={ prd.qty? 'img-qty-cover visible':'img-qty-cover'}>{prd.qty}</div>
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="swiper-pagination"></div>
-    <div class={isSubmitted? 'cart-container visible':'cart-container'} id="cart">
+    <div class={isSubmitted? 'cart-container visible submitted':'cart-container'} id="cart">
       <i class="fa fa-shopping-cart shopping-card-icon"></i>
       <img src="./images/cart.png"/>
       <div class="cart-count" id="count">{window.count}</div>

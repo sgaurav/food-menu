@@ -253,6 +253,14 @@ menu {
   height: 28px;
 }
 
+.vendor-wrapper {
+  min-height: 125px;
+}
+
+.submitted {
+  background-color: #aaa !important;
+}
+
 .swiper-slide-active .vendor-wrapper:last-child {
   margin-bottom: 40px;
 }
